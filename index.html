@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>W6 A/B Testing Web App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+  <main class="page-shell">
+    <section id="intro-view" class="panel hero-panel">
+      <div class="eyebrow">CST 640 · Week 6 Assignment</div>
+      <h1>Simple Web App with A/B Testing and Sticky User Assignment</h1>
+      <p class="lead">
+        This project reuses the earlier Google OIDC login demo and extends it into a Week 6 submission.
+        After sign-in, users are randomly assigned to Home Page A or Home Page B, kept on that version,
+        and their button clicks are recorded with a timestamp, IP address, and page version.
+      </p>
+
+      <div class="feature-grid">
+        <article class="card">
+          <h2>Intro Page</h2>
+          <p>This landing page explains the app and provides access to the login feature.</p>
+        </article>
+        <article class="card">
+          <h2>A/B Logic</h2>
+          <p>Logged-in users are assigned to Version A or Version B and remain sticky across visits.</p>
+        </article>
+        <article class="card">
+          <h2>Metrics Capture</h2>
+          <p>Every click records the user, version, timestamp, button label, and server-observed IP.</p>
+        </article>
+      </div>
+
+      <div class="auth-card">
+        <h2>Login</h2>
+        <p class="helper-text">
+          Sign in with Google to enter the logged-in home page and trigger the A/B assignment.
+        </p>
+
+        <div id="google-signin" class="google-button-container"></div>
+        <button id="signout-btn" class="secondary-btn hidden" type="button">Sign out</button>
+        <p id="status-message" class="status-message"></p>
+      </div>
+    </section>
+
+    <aside class="panel profile-panel">
+      <h2>Current User</h2>
+      <div class="profile-header">
+        <img id="profile-picture" class="avatar hidden" src="" alt="User profile" />
+        <div>
+          <div class="profile-name" id="user-name">Not signed in</div>
+          <div class="profile-email" id="user-email">--</div>
+        </div>
+      </div>
+
+      <div class="profile-row">
+        <span class="label">Google ID</span>
+        <span id="user-sub">--</span>
+      </div>
+      <div class="profile-row">
+        <span class="label">Assigned Variant</span>
+        <span id="assigned-variant">--</span>
+      </div>
+      <div class="profile-row">
+        <span class="label">Session State</span>
+        <span id="session-state">Waiting for sign-in</span>
+      </div>
+      <p class="note">This box is useful in your video because it shows authentication and sticky assignment clearly.</p>
+    </aside>
+  </main>
+
+  <section id="home-view" class="home-shell hidden">
+    <div class="panel home-header">
+      <div>
+        <div class="eyebrow">Logged-In Home</div>
+        <h2 id="home-title">Welcome</h2>
+        <p id="home-description" class="helper-text">Your version-specific page will appear here after sign-in.</p>
+      </div>
+      <div class="variant-pill" id="variant-pill">Variant --</div>
+    </div>
+
+    <div id="variant-a" class="panel variant-panel variant-a hidden">
+      <h3>Home Page A</h3>
+      <p>This version emphasizes a clean, supportive layout with action buttons grouped together.</p>
+      <div class="action-row">
+        <button class="primary-btn track-btn" data-version="A" data-button="a-learn-more">Learn More</button>
+        <button class="secondary-btn track-btn" data-version="A" data-button="a-start-trial">Start Trial</button>
+      </div>
+    </div>
+
+    <div id="variant-b" class="panel variant-panel variant-b hidden">
+      <h3>Home Page B</h3>
+      <p>This version uses stronger call-to-action wording to encourage quicker user engagement.</p>
+      <div class="action-row">
+        <button class="primary-btn track-btn" data-version="B" data-button="b-get-started">Get Started Now</button>
+        <button class="secondary-btn track-btn" data-version="B" data-button="b-view-offer">View Offer</button>
+      </div>
+    </div>
+
+    <div class="panel metrics-panel">
+      <h3>Interaction Metrics</h3>
+      <div class="metrics-grid">
+        <div class="metric-box">
+          <span class="metric-label">Total Clicks</span>
+          <strong id="metric-total">0</strong>
+        </div>
+        <div class="metric-box">
+          <span class="metric-label">Version A Clicks</span>
+          <strong id="metric-a">0</strong>
+        </div>
+        <div class="metric-box">
+          <span class="metric-label">Version B Clicks</span>
+          <strong id="metric-b">0</strong>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Button</th>
+              <th>Version</th>
+              <th>IP Address</th>
+              <th>Timestamp</th>
+            </tr>
+          </thead>
+          <tbody id="metrics-body">
+            <tr>
+              <td colspan="5">No interactions recorded yet.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>Updated from the original OIDC demo into a Week 6 assignment-ready project with A/B testing and metrics capture.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

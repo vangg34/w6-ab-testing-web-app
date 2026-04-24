@@ -163,6 +163,12 @@ app.post('/api/logout', (req, res) => {
   });
 });
 
+
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 app.listen(PORT, () => {
   console.log(`W6 A/B testing demo running at http://localhost:${PORT}`);
 });
